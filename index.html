@@ -44,22 +44,20 @@ header p{color:var(--text-secondary);max-width:640px;margin-top:10px;font-size:1
   color:var(--text-muted);
   margin:22px 0 8px;
 }
-.tabs{display:flex;flex-wrap:wrap;gap:8px;}
-.tab{
-  border:1px solid var(--border);
+.dance-select-wrap{max-width:1000px;margin:0 auto;padding:0 24px 8px;}
+.dance-select-wrap label{display:block;font-size:12px;color:var(--text-muted);margin-bottom:6px;}
+#dance-select{
+  width:100%;max-width:420px;
   background:var(--surface);
-  color:var(--text-secondary);
-  padding:9px 16px;
-  border-radius:20px;
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:11px 14px;
   font-family:'Work Sans',sans-serif;
-  font-size:14px;
+  font-size:15px;
   cursor:pointer;
-  transition:background .15s,color .15s,border-color .15s;
 }
-.tab[data-cat="standard"].active{background:var(--standard);color:#10151F;border-color:var(--standard);}
-.tab[data-cat="latin"].active{background:var(--latin);color:#10151F;border-color:var(--latin);}
-.tab:hover:not(.active){border-color:var(--text-secondary);}
-main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
+#dance-select:focus{outline:2px solid var(--gold);outline-offset:1px;}main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
 .dance-panel{display:none;}
 .dance-panel.active{display:block;animation:fade .25s ease;}
 @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
@@ -141,11 +139,9 @@ main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
   <p>Grundschritte und je sechs weiterführende Figuren pro Tanz, jeweils für Herr und Dame. Die Schemas werden aus der Schrittfolge automatisch gezeichnet – jede Figur bekommt dadurch ihre eigene, tatsächliche Bewegungsform statt eines generischen Musters.</p>
 </header>
 
-<div class="groups">
-  <div class="group-label">Standardtänze</div>
-  <div class="tabs" id="tabs-standard"></div>
-  <div class="group-label">Lateintänze</div>
-  <div class="tabs" id="tabs-latin"></div>
+<div class="dance-select-wrap">
+  <label for="dance-select">Tanz auswählen</label>
+  <select id="dance-select"></select>
 </div>
 
 <main id="main"></main>
@@ -269,6 +265,42 @@ const DANCES = [
     {name:'Enchufla', figCount:'3 Schritte · Platzwechsel', steps:[['L','1','v',30],['R','2','c',30],['L','3','s',30]], stepsDame:[['R','1','v',90],['L','2','v',90],['R','3','v',90]]},
     {name:'Sombrero', figCount:'3 Schritte · Dame dreht', steps:[['L','1','c',0],['R','2','c',0],['L','3','c',0]], stepsDame:[['R','1','v',120],['L','2','v',120],['R','3','v',120]]},
   ]},
+{ id:'samba', name:'Samba', cat:'latin', meta:'2/4-Takt · ca. 50–52 Takte/Min · Bounce', video:'Mpj1LIIxVbY',
+  playlist:'70Mudhh6bLxuEBwI0npRON',
+  songs:[['Mas Que Nada','Sergio Mendes'],['Copacabana (At the Copa)','Barry Manilow'],['Chove Chuva','Jorge Ben Jor'],['Samba de Janeiro','Bellini'],['Magalenha','Sergio Mendes'],['Tic Tic Tac','Carrapicho'],['Águas de Março','Elis Regina & Tom Jobim'],['Garota de Ipanema','Tom Jobim'],['Bum Bum Tam Tam','MC Fioti'],['Rasputin','Boney M.']],
+  figures:[
+    {name:'Grundschritt (Basic Movement)', figCount:'3 Schritte', steps:[['L','1','v',0],['R','a','c',0],['L','2','z',0]]},
+    {name:'Whisks', figCount:'3 Schritte', steps:[['L','1','s',0],['R','a','kh',0],['L','2','s',0]]},
+    {name:'Botafogos', figCount:'4 Schritte', steps:[['L','1','kv',30],['R','a','c',0],['R','2','kv',-30],['L','a2','c',0]]},
+    {name:'Volta', figCount:'4 Schritte', steps:[['L','1','s',45],['R','a','c',45],['L','2','s',45],['R','a2','c',45]]},
+    {name:'Copacabana', figCount:'3 Schritte', steps:[['L','1','s',0],['R','a','c',0],['L','2','s',20]]},
+    {name:'Criss Cross Voltas', figCount:'4 Schritte', steps:[['L','1','kv',60],['R','a','c',60],['L','2','kv',60],['R','a2','c',60]]},
+  ]},
+{ id:'pasodoble', name:'Paso Doble', cat:'latin', meta:'2/4-Takt · ca. 60–62 Takte/Min · marschartig', video:'1MvOtsbBbZU',
+  playlist:'0eLchsAOcKR0oPpQoXAZHQ',
+  songs:[['España Cañí','Pascual Marquina Narro'],['Amparito Roca','Jaime Texidor'],['Malagueña','Ernesto Lecuona'],['España (Rhapsodie)','Emmanuel Chabrier'],['Toreador-Lied (Carmen)','Georges Bizet'],['Y Viva España','Manolo Escobar'],['Torero','Renato Carosone'],['Asturias (Leyenda)','Isaac Albéniz'],['Paquito el Chocolatero','Various Artists'],['Gitano','Gipsy Kings']],
+  figures:[
+    {name:'Grundschritt (Sur Place)', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','c',0],['L','3','c',0],['R','4','c',0]]},
+    {name:'Chassés', figCount:'3 Schritte', steps:[['L','1','s',0],['R','2','c',0],['L','3','s',0]]},
+    {name:'Huit (Achterfigur)', figCount:'4 Schritte', steps:[['R','1','v',45],['L','2','v',-90],['R','3','v',90],['L','4','v',-45]]},
+    {name:'Promenade Links', figCount:'4 Schritte', steps:[['L','1','v',20],['R','2','v',0],['L','3','v',20],['R','4','c',0]]},
+    {name:'Trennung (Separation)', figCount:'3 Schritte', steps:[['R','1','z',0],['L','2','c',0],['R','3','v',0]]},
+    {name:'Twist Turn', figCount:'4 Schritte', steps:[['L','1','v',45],['R','2','s',45],['L','3','z',45],['R','4','c',45]]},
+  ]},
+{ id:'discofox', name:'Discofox', cat:'social', meta:'4/4-Takt · ca. 120–136 BPM · Gesellschaftstanz', video:'Lz14GyD9jIM',
+  playlist:'3xx6IYanZrGt1VfNupbt5c',
+  songs:[['Atemlos durch die Nacht','Helene Fischer'],['Verdammt, ich lieb\u2019 dich','Matthias Reim'],['Ein Stern (... der deinen Namen trägt)','DJ Ötzi & Nik P.'],['Cordula Grün','Die Draufgänger'],['Layla','DJ Robin & Schürze'],['Angels (Robin Schulz Remix)','Robbie Williams'],['Sweet Caroline','Neil Diamond'],['Griechischer Wein','Udo Jürgens'],['Ein Bett im Kornfeld','Jürgen Drews'],['Fliegerlied','Deichkind']],
+  figures:[
+    {name:'Grundschritt vor–zurück', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','z',0],['L','3','s',0],['R','&','c',0]]},
+    {name:'Seitlicher Wechselschritt', figCount:'4 Schritte', steps:[['L','1','s',0],['R','&','c',0],['L','2','s',0],['R','&','c',0]]},
+    {name:'Promenade', figCount:'4 Schritte', steps:[['L','1','v',20],['R','2','v',0],['L','3','s',0],['R','&','c',0]]},
+    {name:'Cuddle (Wickler)', figCount:'3 Schritte', steps:[['L','1','v',0],['R','2','kh',0],['L','3','s',0]]},
+    {name:'Platzwechsel', figCount:'3 Schritte', steps:[['L','1','v',90],['R','2','s',90],['L','3','c',0]]},
+    {name:'Doppelwechselschritt', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','z',0],['L','3','v',0],['R','4','z',0]]},
+    {name:'Damendrehung rechts', figCount:'3 Schritte · Dame dreht', steps:[['L','1','s',0],['R','&','c',0],['L','2','s',0]], stepsDame:[['R','1','v',120],['L','&','v',120],['R','2','v',120]]},
+    {name:'Damendrehung links', figCount:'3 Schritte · Dame dreht', steps:[['R','1','s',0],['L','&','c',0],['R','2','s',0]], stepsDame:[['L','1','v',-120],['R','&','v',-120],['L','2','v',-120]]},
+    {name:'Doppeldrehung', figCount:'4 Schritte · Dame dreht 2×', steps:[['L','1','s',0],['R','&','c',0],['L','2','s',0],['R','&','c',0]], stepsDame:[['R','1','v',180],['L','&','v',180],['R','2','v',0],['L','&','v',0]]},
+  ]},
 ];
 
 const MOVE_LABEL = { v:'vorwärts', z:'rückwärts', s:'seitwärts', c:'schließt', kv:'kreuzt vor', kh:'kreuzt hinter' };
@@ -367,15 +399,22 @@ function renderStepsList(steps){
   ).join('') + '</ol>';
 }
 
-const tabsStandard = document.getElementById('tabs-standard');
-const tabsLatin = document.getElementById('tabs-latin');
+const CAT_LABEL = { standard:'Standardtänze', latin:'Lateintänze', social:'Gesellschaftstänze' };
+
+const select = document.getElementById('dance-select');
 const main = document.getElementById('main');
 
+const optgroups = {};
 DANCES.forEach(dance=>{
-  const tab = document.createElement('button');
-  tab.className='tab'; tab.dataset.cat=dance.cat; tab.dataset.id=dance.id; tab.textContent=dance.name;
-  tab.onclick = ()=> showDance(dance.id);
-  (dance.cat==='standard'?tabsStandard:tabsLatin).appendChild(tab);
+  if(!optgroups[dance.cat]){
+    const og = document.createElement('optgroup');
+    og.label = CAT_LABEL[dance.cat] || dance.cat;
+    optgroups[dance.cat] = og;
+    select.appendChild(og);
+  }
+  const opt = document.createElement('option');
+  opt.value = dance.id; opt.textContent = dance.name;
+  optgroups[dance.cat].appendChild(opt);
 
   const panel = document.createElement('section');
   panel.className='dance-panel'; panel.id='panel-'+dance.id;
@@ -411,9 +450,9 @@ DANCES.forEach(dance=>{
 });
 
 function showDance(id){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.id===id));
   document.querySelectorAll('.dance-panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+id));
 }
+select.addEventListener('change', ()=> showDance(select.value));
 
 function toggleFigure(danceId, idx, cardEl){
   const grid = document.getElementById('grid-'+danceId);
@@ -464,7 +503,7 @@ function toggleFigure(danceId, idx, cardEl){
 }
 
 showDance('quickstep');
-document.querySelector('.tab[data-id="quickstep"]').classList.add('active');
+select.value = 'quickstep';
 </script>
 </body>
 </html>
