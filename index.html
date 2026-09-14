@@ -65,6 +65,7 @@ main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
 @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 .dance-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:20px;}
 .dance-head h2{font-size:28px;}
+.section-divider{border:0;border-top:1px solid var(--border);margin:32px 0 28px;}
 .dance-meta{color:var(--text-secondary);font-size:13px;}
 .video-wrap{
   position:relative;width:100%;max-width:420px;aspect-ratio:16/9;
@@ -125,17 +126,19 @@ main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
 .song-list a{color:var(--text);text-decoration:none;font-size:13px;display:block;padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);}
 .song-list a:hover{border-color:var(--gold);}
 .song-list .artist{color:var(--text-muted);display:block;font-size:11px;margin-top:1px;}
+.section-label{font-size:12px;color:var(--text-muted);margin:0 0 10px;text-transform:none;}
+.detail-title{font-size:17px;margin-bottom:16px;}
+.detail-columns{display:flex;flex-wrap:wrap;gap:24px;}
+.detail-col{flex:1;min-width:230px;}
+.col-label{font-family:'Fraunces',serif;font-weight:500;font-size:14px;color:var(--gold);margin-bottom:10px;}
+.detail-col .steps-box{margin-top:12px;}
 </style>
 </head>
 <body>
 
 <header>
   <h1>Standardtänze &amp; Lateintänze</h1>
-  <p>Grundschritte und je sechs weiterführende Figuren pro Tanz. Die Schemas werden aus der Schrittfolge automatisch gezeichnet – jede Figur bekommt dadurch ihre eigene, tatsächliche Bewegungsform statt eines generischen Musters.</p>
-  <div class="gender-toggle" id="gender-toggle">
-    <button class="gtab active" data-g="herr">Herr</button>
-    <button class="gtab" data-g="dame">Dame</button>
-  </div>
+  <p>Grundschritte und je sechs weiterführende Figuren pro Tanz, jeweils für Herr und Dame. Die Schemas werden aus der Schrittfolge automatisch gezeichnet – jede Figur bekommt dadurch ihre eigene, tatsächliche Bewegungsform statt eines generischen Musters.</p>
 </header>
 
 <div class="groups">
@@ -216,6 +219,10 @@ const DANCES = [
     {name:'American Spin', figCount:'4 Schritte', steps:[['R','1','v',90],['L','2','s',90],['R','3','s',90],['L','4','c',90]]},
     {name:'Link', figCount:'3 Schritte', steps:[['R','1','s',0],['L','2','kv',0],['R','3','c',0]]},
     {name:'Stop and Go', figCount:'4 Schritte', steps:[['R','1','v',0],['L','2','z',0],['R','3','s',0],['L','4','c',0]]},
+    {name:'Damensolodrehung rechts', figCount:'3 Schritte · Dame dreht', steps:[['L','1','s',0],['R','&','c',0],['L','2','s',0]], stepsDame:[['R','1','v',120],['L','&','v',120],['R','2','v',120]]},
+    {name:'Damensolodrehung links', figCount:'3 Schritte · Dame dreht', steps:[['R','1','s',0],['L','&','c',0],['R','2','s',0]], stepsDame:[['L','1','v',-120],['R','&','v',-120],['L','2','v',-120]]},
+    {name:'Windmill (Windmühle)', figCount:'3 Schritte · beide drehen', steps:[['L','1','v',135],['R','2','v',0],['L','3','c',0]], stepsDame:[['R','1','z',135],['L','2','z',0],['R','3','c',0]]},
+    {name:'Handwechsel hinter dem Rücken', figCount:'3 Schritte · Dame dreht', steps:[['L','1','s',0],['R','&','c',0],['L','2','s',0]], stepsDame:[['R','1','v',90],['L','&','v',90],['R','2','v',0]]},
   ]},
 { id:'rumba', name:'Rumba', cat:'latin', meta:'4/4-Takt · ca. 25–27 Takte/Min · sinnlich', video:'mVGbjdybKpg',
   playlist:'7CZqOluv128av2G3uMS14I',
@@ -227,6 +234,10 @@ const DANCES = [
     {name:'Spot Turn', figCount:'3 Schritte', steps:[['L','2','v',90],['R','3','s',90],['L','4','c',0]]},
     {name:'Fan', figCount:'4 Schritte', steps:[['L','2','s',0],['R','3','c',0],['L','4','z',0],['R','1','c',0]]},
     {name:'Hand to Hand', figCount:'4 Schritte', steps:[['L','2','v',20],['R','3','c',-20],['R','2','v',-20],['L','3','c',20]]},
+    {name:'Alemana', figCount:'4 Schritte · Dame dreht', steps:[['R','2','s',0],['L','3','c',0],['R','4','v',0],['L','1','c',0]], stepsDame:[['L','2','v',0],['R','3','v',120],['L','4','v',120],['R','1','v',120]]},
+    {name:'Damensolo (Underarm Turn)', figCount:'3 Schritte · Dame dreht', steps:[['L','2','s',0],['R','3','c',0],['L','4','v',0]], stepsDame:[['R','2','v',120],['L','3','v',120],['R','4','v',120]]},
+    {name:'Damen-Spirale', figCount:'3 Schritte · Dame überdreht', steps:[['R','2','s',0],['L','3','c',0],['R','4','v',0]], stepsDame:[['L','2','v',150],['R','3','v',150],['L','4','v',150]]},
+    {name:'Aida', figCount:'3 Schritte · Rücken an Rücken', steps:[['L','2','v',0],['R','3','s',0],['L','4','c',0]], stepsDame:[['R','2','v',60],['L','3','v',60],['R','4','v',60]]},
   ]},
 { id:'chachacha', name:'Cha Cha Cha', cat:'latin', meta:'4/4-Takt · ca. 30–32 Takte/Min · verspielt', video:'Uszfx6d8Kr0',
   playlist:'4DqCl0zUW5f7qbFwDIzWM9',
@@ -238,6 +249,10 @@ const DANCES = [
     {name:'Hand to Hand', figCount:'4 Schritte', steps:[['L','2','v',20],['R','3','c',-20],['R','2','v',-20],['L','3','c',20]]},
     {name:'Time Step', figCount:'5 Schritte', steps:[['L','2','s',0],['R','3','c',0],['L','&','s',0],['R','4','c',0],['L','1','s',0]]},
     {name:'Cuban Break', figCount:'3 Schritte', steps:[['L','2','v',0],['R','3','z',0],['L','4','s',0]]},
+    {name:'Alemana', figCount:'4 Schritte · Dame dreht', steps:[['L','2','s',0],['R','3','c',0],['L','&','s',0],['R','4','c',0]], stepsDame:[['R','2','v',90],['L','3','v',90],['R','&','v',90],['L','4','v',90]]},
+    {name:'Damensolo rechts', figCount:'3 Schritte · Dame dreht', steps:[['L','2','s',0],['R','3','c',0],['L','4','v',0]], stepsDame:[['R','2','v',120],['L','3','v',120],['R','4','v',120]]},
+    {name:'Damensolo links', figCount:'3 Schritte · Dame dreht', steps:[['R','2','s',0],['L','3','c',0],['R','4','v',0]], stepsDame:[['L','2','v',-120],['R','3','v',-120],['L','4','v',-120]]},
+    {name:'Aida', figCount:'3 Schritte · Rücken an Rücken', steps:[['L','2','v',0],['R','3','s',0],['L','4','c',0]], stepsDame:[['R','2','v',60],['L','3','v',60],['R','4','v',60]]},
   ]},
 { id:'salsa', name:'Salsa (europäisch)', cat:'latin', meta:'4/4-Takt · ca. 45–50 Takte/Min · linear', video:'TmKDXx4_4hA',
   playlist:'6HAF8vGSurlKu4ZuKtfvE4',
@@ -249,12 +264,14 @@ const DANCES = [
     {name:'Linksdrehung', figCount:'4 Schritte', steps:[['R','1','v',-90],['L','2','c',-90],['R','3','s',0],['L','5','c',0]]},
     {name:'Side Step', figCount:'6 Schritte', steps:[['L','1','s',0],['R','2','c',0],['L','3','c',0],['R','5','s',0],['L','6','c',0],['R','7','c',0]]},
     {name:'Setenta', figCount:'4 Schritte', steps:[['L','1','v',45],['R','2','c',90],['L','3','s',45],['R','5','c',0]]},
+    {name:'Vuelta (Damen-Rechtsdrehung)', figCount:'3 Schritte · Dame dreht', steps:[['L','1','c',0],['R','2','c',0],['L','3','c',0]], stepsDame:[['R','1','v',120],['L','2','v',120],['R','3','v',120]]},
+    {name:'Lady\u2019s Left Turn (Inside Turn)', figCount:'3 Schritte · Dame dreht', steps:[['R','1','c',0],['L','2','c',0],['R','3','c',0]], stepsDame:[['L','1','v',-120],['R','2','v',-120],['L','3','v',-120]]},
+    {name:'Enchufla', figCount:'3 Schritte · Platzwechsel', steps:[['L','1','v',30],['R','2','c',30],['L','3','s',30]], stepsDame:[['R','1','v',90],['L','2','v',90],['R','3','v',90]]},
+    {name:'Sombrero', figCount:'3 Schritte · Dame dreht', steps:[['L','1','c',0],['R','2','c',0],['L','3','c',0]], stepsDame:[['R','1','v',120],['L','2','v',120],['R','3','v',120]]},
   ]},
 ];
 
 const MOVE_LABEL = { v:'vorwärts', z:'rückwärts', s:'seitwärts', c:'schließt', kv:'kreuzt vor', kh:'kreuzt hinter' };
-
-let currentGender = 'herr';
 
 // Spiegelt die Herren-Schrittfolge auf die Dame: Fuß wechselt, vor/zurück und
 // kreuzt-vor/kreuzt-hinter tauschen (Partner bewegen sich gegengleich),
@@ -367,6 +384,8 @@ DANCES.forEach(dance=>{
       <h2>${dance.name}</h2>
       <div class="dance-meta">${dance.meta}</div>
     </div>
+    <div class="figure-grid" id="grid-${dance.id}"></div>
+    <hr class="section-divider">
     <div class="video-wrap"><iframe src="https://www.youtube.com/embed/${dance.video}" title="${dance.name} Tutorial" allowfullscreen></iframe></div>
     <div class="video-caption">Video: Grundschritt-Tutorial einer Tanzschule (YouTube) – ersetzt keinen Unterricht.</div>
     <div class="music-section">
@@ -378,7 +397,6 @@ DANCES.forEach(dance=>{
         ).join('')}</ul>
       </div>
     </div>
-    <div class="figure-grid" id="grid-${dance.id}"></div>
   `;
   main.appendChild(panel);
 
@@ -407,43 +425,43 @@ function toggleFigure(danceId, idx, cardEl){
 
   const dance = DANCES.find(d=>d.id===danceId);
   const fig = dance.figures[idx];
-  const steps = currentGender==='dame' ? mirrorSteps(fig.steps) : fig.steps;
+  const stepsHerr = fig.steps;
+  const stepsDame = fig.stepsDame ? fig.stepsDame : mirrorSteps(fig.steps);
   cardEl.classList.add('open');
 
   const detail = document.createElement('div');
   detail.className='figure-detail';
   detail.innerHTML = `
-    <div class="schema-box">
-      ${renderSchemaSVG(steps)}
-      <div class="legend">
-        <span><span class="dot" style="background:var(--foot-l)"></span>linker Fuß</span>
-        <span><span class="dot" style="background:var(--foot-r)"></span>rechter Fuß</span>
+    <div style="width:100%">
+      <h3 class="detail-title">${fig.name}</h3>
+      <div class="detail-columns">
+        <div class="detail-col">
+          <div class="col-label">Herr</div>
+          <div class="schema-box">
+            ${renderSchemaSVG(stepsHerr)}
+            <div class="legend">
+              <span><span class="dot" style="background:var(--foot-l)"></span>linker Fuß</span>
+              <span><span class="dot" style="background:var(--foot-r)"></span>rechter Fuß</span>
+            </div>
+          </div>
+          <div class="steps-box">${renderStepsList(stepsHerr)}</div>
+        </div>
+        <div class="detail-col">
+          <div class="col-label">Dame</div>
+          <div class="schema-box">
+            ${renderSchemaSVG(stepsDame)}
+            <div class="legend">
+              <span><span class="dot" style="background:var(--foot-l)"></span>linker Fuß</span>
+              <span><span class="dot" style="background:var(--foot-r)"></span>rechter Fuß</span>
+            </div>
+          </div>
+          <div class="steps-box">${renderStepsList(stepsDame)}</div>
+        </div>
       </div>
     </div>
-    <div class="steps-box">
-      <h3 style="font-size:16px;margin-bottom:10px;">${fig.name} · ${currentGender==='dame' ? 'Dame' : 'Herr'}</h3>
-      ${renderStepsList(steps)}
-    </div>
   `;
-  cardEl.after(detail);
+  grid.appendChild(detail);
 }
-
-document.querySelectorAll('.gtab').forEach(btn=>{
-  btn.onclick = ()=>{
-    if(btn.classList.contains('active')) return;
-    document.querySelectorAll('.gtab').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    currentGender = btn.dataset.g;
-    // offene Figuren mit dem neuen Geschlecht neu zeichnen
-    document.querySelectorAll('.figure-card.open').forEach(card=>{
-      const grid = card.closest('.figure-grid');
-      const danceId = grid.id.replace('grid-','');
-      const idx = Array.from(grid.children).indexOf(card);
-      card.classList.remove('open');
-      toggleFigure(danceId, idx, card);
-    });
-  };
-});
 
 showDance('quickstep');
 document.querySelector('.tab[data-id="quickstep"]').classList.add('active');
