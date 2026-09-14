@@ -112,6 +112,19 @@ main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
   max-width:1000px;margin:0 auto 40px;padding:0 24px;
   color:var(--text-muted);font-size:13px;
 }
+.gender-toggle{display:inline-flex;background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:3px;margin-top:18px;}
+.gtab{border:none;background:transparent;color:var(--text-secondary);padding:7px 18px;border-radius:16px;font-family:'Work Sans',sans-serif;font-size:13px;cursor:pointer;}
+.gtab.active{background:var(--gold);color:#10151F;}
+.music-section{margin-bottom:32px;}
+.music-section h3{font-size:15px;font-weight:500;color:var(--text-secondary);margin-bottom:12px;}
+.music-layout{display:flex;flex-wrap:wrap;gap:20px;}
+.playlist-embed{flex:0 0 320px;border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.playlist-embed iframe{display:block;}
+.song-list{flex:1;min-width:220px;list-style:none;margin:0;padding:0;columns:2;column-gap:20px;}
+.song-list li{break-inside:avoid;margin-bottom:8px;}
+.song-list a{color:var(--text);text-decoration:none;font-size:13px;display:block;padding:6px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface);}
+.song-list a:hover{border-color:var(--gold);}
+.song-list .artist{color:var(--text-muted);display:block;font-size:11px;margin-top:1px;}
 </style>
 </head>
 <body>
@@ -119,6 +132,10 @@ main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
 <header>
   <h1>Standardtänze &amp; Lateintänze</h1>
   <p>Grundschritte und je sechs weiterführende Figuren pro Tanz. Die Schemas werden aus der Schrittfolge automatisch gezeichnet – jede Figur bekommt dadurch ihre eigene, tatsächliche Bewegungsform statt eines generischen Musters.</p>
+  <div class="gender-toggle" id="gender-toggle">
+    <button class="gtab active" data-g="herr">Herr</button>
+    <button class="gtab" data-g="dame">Dame</button>
+  </div>
 </header>
 
 <div class="groups">
@@ -130,11 +147,13 @@ main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
 
 <main id="main"></main>
 
-<p class="note">Hinweis: Die Schrittfolgen sind vereinfachte Schemas zur Orientierung (Bronze-/Anfängerniveau) und ersetzen keinen Tanzunterricht – Körperspannung, Cuban Motion, Schwung- und Senkbewegung lassen sich so nicht darstellen. Verlinkte Videos stammen von Drittanbietern auf YouTube.</p>
+<p class="note">Hinweis: Die Schrittfolgen sind vereinfachte Schemas zur Orientierung (Bronze-/Anfängerniveau) und ersetzen keinen Tanzunterricht – Körperspannung, Cuban Motion, Schwung- und Senkbewegung lassen sich so nicht darstellen. Verlinkte Videos stammen von Drittanbietern auf YouTube. Die eingebetteten Playlists sind öffentliche Tanzschul-Playlists auf Spotify; die einzelnen Songlinks öffnen die Spotify-Suche nach Titel und Interpret.</p>
 
 <script>
 const DANCES = [
 { id:'quickstep', name:'Quickstep', cat:'standard', meta:'4/4-Takt · ca. 50 Takte/Min · lebhaft', video:'I91ryHiiO2k',
+  playlist:'0Qu27Q2TRPTVkvihaWhdsQ',
+  songs:[['That Man','Caro Emerald'],['Mr. Pinstripe Suit','Big Bad Voodoo Daddy'],['Sing, Sing, Sing','Benny Goodman'],['Forget You','CeeLo Green'],["Don't Stop Me Now",'Queen'],["I Wan'na Be Like You",'Dimie Cat'],['Brown Eyed Girl','Van Morrison'],['Sway','Michael Bublé'],['Fly Me to the Moon','Frank Sinatra'],['Dance Monkey','Tones and I']],
   figures:[
     {name:'Grundschritt (Vierteldrehung)', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','s',90],['L','3','c',0],['R','4','v',0]]},
     {name:'Progressive Chasse', figCount:'3 Schritte', steps:[['R','2','s',0],['L','&','c',0],['R','3','v',45]]},
@@ -144,6 +163,8 @@ const DANCES = [
     {name:'Tipple Chasse', figCount:'4 Schritte', steps:[['L','1','s',0],['R','2','c',0],['L','3','s',45],['R','&','c',0]]},
   ]},
 { id:'slowfox', name:'Slowfox', cat:'standard', meta:'4/4-Takt · ca. 30 Takte/Min · fließend', video:'lW93yvYEooI',
+  playlist:'7yVbWcSf5xF7imb7yCCdeB',
+  songs:[['Fly Me to the Moon','Frank Sinatra'],['The Way You Look Tonight','Tony Bennett'],['Unforgettable','Nat King Cole'],['Cheek to Cheek','Fred Astaire'],['Someone Like You','Adele'],['L-O-V-E','Nat King Cole'],['Feeling Good','Michael Bublé'],['Georgia on My Mind','Ray Charles'],['A Foggy Day','Ella Fitzgerald'],['Beyond the Sea','Bobby Darin']],
   figures:[
     {name:'Feather Step', figCount:'3 Schritte', steps:[['R','1','v',0],['L','2','v',0],['R','3','v',15]]},
     {name:'Three Step', figCount:'3 Schritte', steps:[['L','1','v',0],['R','2','v',0],['L','3','v',0]]},
@@ -153,6 +174,8 @@ const DANCES = [
     {name:'Change of Direction', figCount:'3 Schritte', steps:[['R','1','v',30],['L','2','v',-60],['R','3','v',0]]},
   ]},
 { id:'wienerwalzer', name:'Wiener Walzer', cat:'standard', meta:'3/4-Takt · ca. 58–60 Takte/Min · schnell', video:'pRbFHxUnY1U',
+  playlist:'24aJwU7H0Vx4IKWL7TN9gm',
+  songs:[['An der schönen blauen Donau','Johann Strauss II'],['Frühlingsstimmen','Johann Strauss II'],['Kaiserwalzer','Johann Strauss II'],['Wiener Blut','Johann Strauss II'],['Rosen aus dem Süden','Johann Strauss II'],['Geschichten aus dem Wienerwald','Johann Strauss II'],['Wein, Weib und Gesang','Johann Strauss II'],['Second Waltz','Dmitri Schostakowitsch'],["Skater's Waltz",'Émile Waldteufel'],['Rosenkavalier-Walzer','Richard Strauss']],
   figures:[
     {name:'Rechtsdrehung (Natural Turn)', figCount:'6 Schritte', steps:[['R','1','v',30],['L','2','s',30],['R','3','c',30],['L','1','z',30],['R','2','s',30],['L','3','c',30]]},
     {name:'Linksdrehung (Reverse Turn)', figCount:'6 Schritte', steps:[['L','1','v',-30],['R','2','s',-30],['L','3','c',-30],['R','1','z',-30],['L','2','s',-30],['R','3','c',-30]]},
@@ -162,6 +185,8 @@ const DANCES = [
     {name:'Damendrehung', figCount:'4 Schritte', steps:[['R','1','v',90],['L','2','s',45],['R','3','c',45],['L','1','v',0]]},
   ]},
 { id:'langsamerwalzer', name:'Langsamer Walzer', cat:'standard', meta:'3/4-Takt · ca. 28–30 Takte/Min · ruhig', video:'eX4Rrupk9jA',
+  playlist:'302GhsvbSz0Fhh2CEMar1K',
+  songs:[['Perfect','Ed Sheeran'],['A Thousand Years','Christina Perri'],["Can't Help Falling in Love",'Elvis Presley'],['At Last','Etta James'],['Everything I Do (I Do It for You)','Bryan Adams'],['Unchained Melody','Righteous Brothers'],['Songbird','Fleetwood Mac'],['Thinking Out Loud','Ed Sheeran'],['Have I Told You Lately','Rod Stewart'],['Wonderful Tonight','Eric Clapton']],
   figures:[
     {name:'Natural Turn', figCount:'6 Schritte', steps:[['R','1','v',30],['L','2','s',30],['R','3','c',30],['L','1','z',30],['R','2','s',30],['L','3','c',30]]},
     {name:'Reverse Turn', figCount:'6 Schritte', steps:[['L','1','v',-30],['R','2','s',-30],['L','3','c',-30],['R','1','z',-30],['L','2','s',-30],['R','3','c',-30]]},
@@ -171,6 +196,8 @@ const DANCES = [
     {name:'Progressive Chasse', figCount:'4 Schritte', steps:[['L','1','v',20],['R','2','s',20],['L','&','c',0],['R','3','s',0]]},
   ]},
 { id:'tango', name:'Tango', cat:'standard', meta:'2/4-Takt · ca. 31–33 Takte/Min · staccato', video:'Z5mf_Mx_kIs',
+  playlist:'7qDnnDguuNSE2OuQGw4Yvl',
+  songs:[['La Cumparsita','Gerardo Matos Rodríguez'],['Libertango','Astor Piazzolla'],['Por Una Cabeza','Carlos Gardel'],['El Choclo','Ángel Villoldo'],['Adiós Nonino','Astor Piazzolla'],['Santa Maria (del Buen Ayre)','Gotan Project'],['Tanguera','Mariano Mores'],['Oblivion','Astor Piazzolla'],['Roxanne (Tango Version)','Moulin Rouge Soundtrack'],['Assassin\u2019s Tango','John Powell']],
   figures:[
     {name:'Grundschritt', figCount:'5 Schritte', steps:[['L','1','v',0],['R','2','v',0],['L','3','v',0],['R','4','s',0],['L','5','c',0]]},
     {name:'Corte', figCount:'3 Schritte', steps:[['R','1','z',0],['L','2','c',0],['R','3','v',0]]},
@@ -180,6 +207,8 @@ const DANCES = [
     {name:'Vierschritt', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','v',0],['L','3','s',30],['R','4','c',0]]},
   ]},
 { id:'jive', name:'Jive', cat:'latin', meta:'4/4-Takt · ca. 42–44 Takte/Min · energisch', video:'Mbk20BIFqQU',
+  playlist:'7mVmMhtEkRBVGzZOBCBn7o',
+  songs:[['Rock Around the Clock','Bill Haley & His Comets'],['Jailhouse Rock','Elvis Presley'],['Shake, Rattle and Roll','Bill Haley'],["Jump, Jive an' Wail",'Brian Setzer Orchestra'],['Good Golly, Miss Molly','Little Richard'],['Great Balls of Fire','Jerry Lee Lewis'],['Hound Dog','Elvis Presley'],['Rockin\u2019 Robin','Bobby Day'],['Splish Splash','Bobby Darin'],['Mr. Sandman','The Chordettes']],
   figures:[
     {name:'Grundschritt', figCount:'8 Schritte', steps:[['R','1','s',0],['L','&','c',0],['R','2','s',0],['L','3','s',0],['R','&','c',0],['L','4','s',0],['R','5','z',0],['L','6','v',0]]},
     {name:'Platzwechsel rechts-links', figCount:'4 Schritte', steps:[['R','1','v',0],['L','2','v',90],['R','3','s',90],['L','4','c',0]]},
@@ -189,6 +218,8 @@ const DANCES = [
     {name:'Stop and Go', figCount:'4 Schritte', steps:[['R','1','v',0],['L','2','z',0],['R','3','s',0],['L','4','c',0]]},
   ]},
 { id:'rumba', name:'Rumba', cat:'latin', meta:'4/4-Takt · ca. 25–27 Takte/Min · sinnlich', video:'mVGbjdybKpg',
+  playlist:'7CZqOluv128av2G3uMS14I',
+  songs:[['Bésame Mucho','Consuelo Velázquez'],['Quizás, Quizás, Quizás','Nat King Cole'],['La Bikina','Luis Miguel'],['Historia de un Amor','Carlos Eleta Almarán'],['Perfidia','Various Artists'],['Guantanamera','Various Artists'],['Contigo en la Distancia','Various Artists'],['Sway (Quién Será)','Dean Martin'],['Como Fue','Beny Moré'],['Dos Gardenias','Buena Vista Social Club']],
   figures:[
     {name:'Grundschritt (Box)', figCount:'6 Schritte', steps:[['L','2','s',0],['R','3','c',0],['L','4','v',0],['R','2','s',0],['L','3','c',0],['R','4','z',0]]},
     {name:'Cucaracha', figCount:'3 Schritte', steps:[['L','2','s',0],['R','3','c',0],['L','4','s',0]]},
@@ -198,6 +229,8 @@ const DANCES = [
     {name:'Hand to Hand', figCount:'4 Schritte', steps:[['L','2','v',20],['R','3','c',-20],['R','2','v',-20],['L','3','c',20]]},
   ]},
 { id:'chachacha', name:'Cha Cha Cha', cat:'latin', meta:'4/4-Takt · ca. 30–32 Takte/Min · verspielt', video:'Uszfx6d8Kr0',
+  playlist:'4DqCl0zUW5f7qbFwDIzWM9',
+  songs:[['Oye Como Va','Tito Puente'],['Smooth','Santana ft. Rob Thomas'],['Livin\u2019 la Vida Loca','Ricky Martin'],['Mambo No. 5','Lou Bega'],['Suavemente','Elvis Crespo'],['1, 2, 3','Sofía Reyes ft. Jason Derulo'],['Danza Kuduro','Don Omar'],['Bailando','Enrique Iglesias'],["Hips Don't Lie",'Shakira'],['La Vida Es Un Carnaval','Celia Cruz']],
   figures:[
     {name:'Grundschritt', figCount:'5 Schritte', steps:[['L','1','v',0],['R','2','z',0],['L','3','s',0],['R','&','c',0],['L','4','s',0]]},
     {name:'New York', figCount:'4 Schritte', steps:[['L','2','v',30],['R','3','c',-30],['R','2','v',-30],['L','3','c',30]]},
@@ -207,6 +240,8 @@ const DANCES = [
     {name:'Cuban Break', figCount:'3 Schritte', steps:[['L','2','v',0],['R','3','z',0],['L','4','s',0]]},
   ]},
 { id:'salsa', name:'Salsa (europäisch)', cat:'latin', meta:'4/4-Takt · ca. 45–50 Takte/Min · linear', video:'TmKDXx4_4hA',
+  playlist:'6HAF8vGSurlKu4ZuKtfvE4',
+  songs:[['Vivir Mi Vida','Marc Anthony'],['El Cantante','Héctor Lavoe'],['Aventurera','Marc Anthony'],['Pedro Navaja','Rubén Blades'],['Llorarás','Oscar D\u2019León'],['Rebelión','Joe Arroyo'],['Vuelve','Ricky Martin'],['Idilio','Marc Anthony'],['Que Bello','Grupo Niche'],['Y Todo Queda En Nada','Marc Anthony']],
   figures:[
     {name:'Grundschritt vor–zurück', figCount:'6 Schritte', steps:[['L','1','v',0],['R','2','c',0],['L','3','c',0],['R','5','z',0],['L','6','c',0],['R','7','c',0]]},
     {name:'Cross Body Lead', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','c',90],['L','3','s',0],['R','5','c',0]]},
@@ -218,6 +253,17 @@ const DANCES = [
 ];
 
 const MOVE_LABEL = { v:'vorwärts', z:'rückwärts', s:'seitwärts', c:'schließt', kv:'kreuzt vor', kh:'kreuzt hinter' };
+
+let currentGender = 'herr';
+
+// Spiegelt die Herren-Schrittfolge auf die Dame: Fuß wechselt, vor/zurück und
+// kreuzt-vor/kreuzt-hinter tauschen (Partner bewegen sich gegengleich),
+// die Drehung bleibt gleich (das Paar dreht sich gemeinsam). Vereinfachte Näherung.
+function mirrorSteps(steps){
+  const swapFoot = f => f==='L' ? 'R' : 'L';
+  const swapMove = m => m==='v' ? 'z' : m==='z' ? 'v' : m==='kv' ? 'kh' : m==='kh' ? 'kv' : m;
+  return steps.map(([foot,count,move,turn]) => [swapFoot(foot), count, swapMove(move), turn]);
+}
 
 function computeSchema(steps){
   let x=0,y=0,heading=0;
@@ -233,11 +279,29 @@ function computeSchema(steps){
     else if(move==='c'){dir=fwd; len=12;}
     else if(move==='kv'){dir={dx:fwd.dx*0.85+right.dx*0.35,dy:fwd.dy*0.85+right.dy*0.35}; len=44;}
     else if(move==='kh'){dir={dx:fwd.dx*0.85-right.dx*0.35,dy:fwd.dy*0.85-right.dy*0.35}; len=44;}
+    const angle = Math.atan2(dir.dx, -dir.dy) * 180/Math.PI;
     x+=dir.dx*len; y+=dir.dy*len;
-    pts.push({x,y,foot,count,move});
+    pts.push({x,y,foot,count,move,angle});
     heading += (turn||0);
   });
   return pts;
+}
+
+// Catmull-Rom durch alle Punkte, als kubische Bezierkurve – ergibt eine
+// durchgehende, weiche "Spur" statt einzelner gerader Segmente.
+function smoothPathD(coords){
+  if(coords.length<2) return `M ${coords[0].x} ${coords[0].y}`;
+  let d = `M ${coords[0].x.toFixed(1)} ${coords[0].y.toFixed(1)} `;
+  for(let i=0;i<coords.length-1;i++){
+    const p0 = coords[i-1] || coords[i];
+    const p1 = coords[i];
+    const p2 = coords[i+1];
+    const p3 = coords[i+2] || p2;
+    const c1x = p1.x + (p2.x-p0.x)/6, c1y = p1.y + (p2.y-p0.y)/6;
+    const c2x = p2.x - (p3.x-p1.x)/6, c2y = p2.y - (p3.y-p1.y)/6;
+    d += `C ${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)} `;
+  }
+  return d;
 }
 
 function renderSchemaSVG(steps){
@@ -248,33 +312,29 @@ function renderSchemaSVG(steps){
   const w = Math.max(maxX-minX,1), h = Math.max(maxY-minY,1);
   const W = w+pad*2, H = h+pad*2;
   const ox = pad-minX, oy = pad-minY;
-  const sx = p => p.x+ox, sy = p => p.y+oy;
+  const coords = pts.map(p=>({x:p.x+ox, y:p.y+oy}));
+  const gradId = 'trailGrad'+Math.random().toString(36).slice(2,8);
 
   let svg = `<svg width="100%" viewBox="0 0 ${W.toFixed(0)} ${H.toFixed(0)}" role="img"><title>Schrittschema</title>`;
-  svg += `<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#8891A8" stroke-width="1.5" stroke-linecap="round"/></marker></defs>`;
+  svg += `<defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <linearGradient id="${gradId}" x1="${coords[0].x.toFixed(1)}" y1="${coords[0].y.toFixed(1)}" x2="${coords[coords.length-1].x.toFixed(1)}" y2="${coords[coords.length-1].y.toFixed(1)}" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3A4258"/>
+      <stop offset="100%" stop-color="#C9A227"/>
+    </linearGradient>
+  </defs>`;
 
-  // guide path
-  let d = `M ${sx(pts[0]).toFixed(1)} ${sy(pts[0]).toFixed(1)} `;
-  pts.slice(1).forEach(p=>{ d+= `L ${sx(p).toFixed(1)} ${sy(p).toFixed(1)} `; });
-  svg += `<path d="${d}" fill="none" stroke="#3A4258" stroke-width="1" stroke-dasharray="3,4"/>`;
+  // durchgehende, weiche Spur mit Richtungspfeil am Ende
+  svg += `<path d="${smoothPathD(coords)}" fill="none" stroke="url(#${gradId})" stroke-width="3" stroke-linecap="round" marker-end="url(#ar)"/>`;
 
-  // arrows between points, shrunk toward the midpoint
-  for(let i=0;i<pts.length-1;i++){
-    const a=pts[i], b=pts[i+1];
-    const ax=sx(a), ay=sy(a), bx=sx(b), by=sy(b);
-    const start = {x: ax+(bx-ax)*0.35, y: ay+(by-ay)*0.35};
-    const end = {x: ax+(bx-ax)*0.8, y: ay+(by-ay)*0.8};
-    svg += `<line x1="${start.x.toFixed(1)}" y1="${start.y.toFixed(1)}" x2="${end.x.toFixed(1)}" y2="${end.y.toFixed(1)}" stroke="#8891A8" stroke-width="1.1" marker-end="url(#ar)"/>`;
-  }
-
-  // footprints + labels
+  // Fußabdrücke (in Bewegungsrichtung gedreht) + Beschriftung
   pts.forEach((p,i)=>{
-    const cx=sx(p), cy=sy(p);
+    const cx=coords[i].x, cy=coords[i].y;
     const color = p.foot==='L' ? 'var(--foot-l)' : 'var(--foot-r)';
-    svg += `<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="15" ry="10" fill="${color}" fill-opacity="0.25" stroke="${color}" stroke-width="1.2"/>`;
+    svg += `<g transform="rotate(${p.angle.toFixed(1)} ${cx.toFixed(1)} ${cy.toFixed(1)})"><ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="9" ry="15" fill="${color}" fill-opacity="0.3" stroke="${color}" stroke-width="1.3"/></g>`;
     svg += `<text x="${cx.toFixed(1)}" y="${(cy+1).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="10" font-weight="600" fill="${color}" font-family="Work Sans, sans-serif">${p.foot}</text>`;
     const side = i%2===0 ? 1 : -1;
-    const lx = cx + side*30, ly = cy - 22;
+    const lx = cx + side*32, ly = cy - 24;
     const anchor = side>0 ? 'start' : 'end';
     svg += `<text x="${(lx).toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" font-size="10" fill="#EDEAE2" font-family="Work Sans, sans-serif">${p.count}</text>`;
     svg += `<text x="${(lx).toFixed(1)}" y="${(ly+13).toFixed(1)}" text-anchor="${anchor}" font-size="10" fill="#A7ACC0" font-family="Work Sans, sans-serif">${MOVE_LABEL[p.move]}</text>`;
@@ -309,6 +369,15 @@ DANCES.forEach(dance=>{
     </div>
     <div class="video-wrap"><iframe src="https://www.youtube.com/embed/${dance.video}" title="${dance.name} Tutorial" allowfullscreen></iframe></div>
     <div class="video-caption">Video: Grundschritt-Tutorial einer Tanzschule (YouTube) – ersetzt keinen Unterricht.</div>
+    <div class="music-section">
+      <h3>Musik zum ${dance.name}</h3>
+      <div class="music-layout">
+        <div class="playlist-embed"><iframe src="https://open.spotify.com/embed/playlist/${dance.playlist}?theme=0" width="320" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+        <ul class="song-list">${dance.songs.map(([title,artist])=>
+          `<li><a href="https://open.spotify.com/search/${encodeURIComponent(title+' '+artist)}" target="_blank" rel="noopener">${title}<span class="artist">${artist}</span></a></li>`
+        ).join('')}</ul>
+      </div>
+    </div>
     <div class="figure-grid" id="grid-${dance.id}"></div>
   `;
   main.appendChild(panel);
@@ -338,25 +407,43 @@ function toggleFigure(danceId, idx, cardEl){
 
   const dance = DANCES.find(d=>d.id===danceId);
   const fig = dance.figures[idx];
+  const steps = currentGender==='dame' ? mirrorSteps(fig.steps) : fig.steps;
   cardEl.classList.add('open');
 
   const detail = document.createElement('div');
   detail.className='figure-detail';
   detail.innerHTML = `
     <div class="schema-box">
-      ${renderSchemaSVG(fig.steps)}
+      ${renderSchemaSVG(steps)}
       <div class="legend">
         <span><span class="dot" style="background:var(--foot-l)"></span>linker Fuß</span>
         <span><span class="dot" style="background:var(--foot-r)"></span>rechter Fuß</span>
       </div>
     </div>
     <div class="steps-box">
-      <h3 style="font-size:16px;margin-bottom:10px;">${fig.name}</h3>
-      ${renderStepsList(fig.steps)}
+      <h3 style="font-size:16px;margin-bottom:10px;">${fig.name} · ${currentGender==='dame' ? 'Dame' : 'Herr'}</h3>
+      ${renderStepsList(steps)}
     </div>
   `;
   cardEl.after(detail);
 }
+
+document.querySelectorAll('.gtab').forEach(btn=>{
+  btn.onclick = ()=>{
+    if(btn.classList.contains('active')) return;
+    document.querySelectorAll('.gtab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentGender = btn.dataset.g;
+    // offene Figuren mit dem neuen Geschlecht neu zeichnen
+    document.querySelectorAll('.figure-card.open').forEach(card=>{
+      const grid = card.closest('.figure-grid');
+      const danceId = grid.id.replace('grid-','');
+      const idx = Array.from(grid.children).indexOf(card);
+      card.classList.remove('open');
+      toggleFigure(danceId, idx, card);
+    });
+  };
+});
 
 showDance('quickstep');
 document.querySelector('.tab[data-id="quickstep"]').classList.add('active');
