@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Standardtänze &amp; Lateintänze – Figurenübersicht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#1B1F2A;
+  --surface:#242A3A;
+  --surface2:#2E3547;
+  --text:#EDEAE2;
+  --text-secondary:#A7ACC0;
+  --text-muted:#6E7690;
+  --gold:#C9A227;
+  --standard:#7FA0D6;
+  --latin:#D3684F;
+  --foot-l:#5B8DEF;
+  --foot-r:#D9A441;
+  --border:#3A4258;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Work Sans',sans-serif;
+  line-height:1.6;
+}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;margin:0;}
+header{
+  padding:48px 24px 28px;
+  max-width:1000px;
+  margin:0 auto;
+  text-align:left;
+}
+header h1{font-size:clamp(28px,5vw,42px);letter-spacing:-0.01em;}
+header p{color:var(--text-secondary);max-width:640px;margin-top:10px;font-size:15px;}
+.groups{max-width:1000px;margin:0 auto;padding:0 24px;}
+.group-label{
+  font-size:12px;
+  color:var(--text-muted);
+  margin:22px 0 8px;
+}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;}
+.tab{
+  border:1px solid var(--border);
+  background:var(--surface);
+  color:var(--text-secondary);
+  padding:9px 16px;
+  border-radius:20px;
+  font-family:'Work Sans',sans-serif;
+  font-size:14px;
+  cursor:pointer;
+  transition:background .15s,color .15s,border-color .15s;
+}
+.tab[data-cat="standard"].active{background:var(--standard);color:#10151F;border-color:var(--standard);}
+.tab[data-cat="latin"].active{background:var(--latin);color:#10151F;border-color:var(--latin);}
+.tab:hover:not(.active){border-color:var(--text-secondary);}
+main{max-width:1000px;margin:0 auto;padding:32px 24px 80px;}
+.dance-panel{display:none;}
+.dance-panel.active{display:block;animation:fade .25s ease;}
+@keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+.dance-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--border);padding-bottom:16px;margin-bottom:20px;}
+.dance-head h2{font-size:28px;}
+.dance-meta{color:var(--text-secondary);font-size:13px;}
+.video-wrap{
+  position:relative;width:100%;max-width:420px;aspect-ratio:16/9;
+  background:#000;border-radius:10px;overflow:hidden;margin-bottom:28px;
+  border:1px solid var(--border);
+}
+.video-wrap iframe{width:100%;height:100%;border:0;}
+.video-caption{font-size:12px;color:var(--text-muted);margin-top:8px;max-width:420px;}
+.figure-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:12px;
+}
+.figure-card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:16px;
+  cursor:pointer;
+  transition:border-color .15s,background .15s;
+}
+.figure-card:hover{border-color:var(--text-secondary);}
+.figure-card.open{background:var(--surface2);border-color:var(--gold);}
+.figure-card .fname{font-family:'Fraunces',serif;font-weight:500;font-size:16px;}
+.figure-card .fcount{color:var(--text-muted);font-size:12px;margin-top:4px;}
+.figure-detail{
+  grid-column:1/-1;
+  background:var(--surface2);
+  border:1px solid var(--gold);
+  border-radius:10px;
+  padding:20px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:24px;
+}
+.figure-detail .schema-box{flex:0 0 260px;}
+.figure-detail .steps-box{flex:1;min-width:200px;}
+.steps-box ol{margin:0;padding-left:20px;font-size:14px;}
+.steps-box li{margin-bottom:6px;}
+.steps-box li b{color:var(--gold);}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--text-secondary);margin-top:10px;}
+.legend span{display:inline-flex;align-items:center;gap:6px;}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+.note{
+  max-width:1000px;margin:0 auto 40px;padding:0 24px;
+  color:var(--text-muted);font-size:13px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Standardtänze &amp; Lateintänze</h1>
+  <p>Grundschritte und je sechs weiterführende Figuren pro Tanz. Die Schemas werden aus der Schrittfolge automatisch gezeichnet – jede Figur bekommt dadurch ihre eigene, tatsächliche Bewegungsform statt eines generischen Musters.</p>
+</header>
+
+<div class="groups">
+  <div class="group-label">Standardtänze</div>
+  <div class="tabs" id="tabs-standard"></div>
+  <div class="group-label">Lateintänze</div>
+  <div class="tabs" id="tabs-latin"></div>
+</div>
+
+<main id="main"></main>
+
+<p class="note">Hinweis: Die Schrittfolgen sind vereinfachte Schemas zur Orientierung (Bronze-/Anfängerniveau) und ersetzen keinen Tanzunterricht – Körperspannung, Cuban Motion, Schwung- und Senkbewegung lassen sich so nicht darstellen. Verlinkte Videos stammen von Drittanbietern auf YouTube.</p>
+
+<script>
+const DANCES = [
+{ id:'quickstep', name:'Quickstep', cat:'standard', meta:'4/4-Takt · ca. 50 Takte/Min · lebhaft', video:'I91ryHiiO2k',
+  figures:[
+    {name:'Grundschritt (Vierteldrehung)', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','s',90],['L','3','c',0],['R','4','v',0]]},
+    {name:'Progressive Chasse', figCount:'3 Schritte', steps:[['R','2','s',0],['L','&','c',0],['R','3','v',45]]},
+    {name:'Natural Turn', figCount:'6 Schritte', steps:[['L','1','v',30],['R','2','s',30],['L','3','c',30],['R','1','v',30],['L','2','s',30],['R','3','c',30]]},
+    {name:'Lock Step', figCount:'3 Schritte', steps:[['L','1','v',0],['R','&','kh',0],['L','2','v',0]]},
+    {name:'Natural Spin Turn', figCount:'4 Schritte', steps:[['L','1','v',45],['R','2','s',45],['L','3','c',45],['R','1','v',45]]},
+    {name:'Tipple Chasse', figCount:'4 Schritte', steps:[['L','1','s',0],['R','2','c',0],['L','3','s',45],['R','&','c',0]]},
+  ]},
+{ id:'slowfox', name:'Slowfox', cat:'standard', meta:'4/4-Takt · ca. 30 Takte/Min · fließend', video:'lW93yvYEooI',
+  figures:[
+    {name:'Feather Step', figCount:'3 Schritte', steps:[['R','1','v',0],['L','2','v',0],['R','3','v',15]]},
+    {name:'Three Step', figCount:'3 Schritte', steps:[['L','1','v',0],['R','2','v',0],['L','3','v',0]]},
+    {name:'Reverse Turn', figCount:'4 Schritte', steps:[['R','1','v',-30],['L','2','s',-30],['R','3','c',-30],['L','1','v',-30]]},
+    {name:'Natural Turn', figCount:'4 Schritte', steps:[['L','1','v',30],['R','2','s',30],['L','3','c',30],['R','1','v',30]]},
+    {name:'Feather Finish', figCount:'3 Schritte', steps:[['L','1','v',0],['R','2','v',0],['L','3','v',30]]},
+    {name:'Change of Direction', figCount:'3 Schritte', steps:[['R','1','v',30],['L','2','v',-60],['R','3','v',0]]},
+  ]},
+{ id:'wienerwalzer', name:'Wiener Walzer', cat:'standard', meta:'3/4-Takt · ca. 58–60 Takte/Min · schnell', video:'pRbFHxUnY1U',
+  figures:[
+    {name:'Rechtsdrehung (Natural Turn)', figCount:'6 Schritte', steps:[['R','1','v',30],['L','2','s',30],['R','3','c',30],['L','1','z',30],['R','2','s',30],['L','3','c',30]]},
+    {name:'Linksdrehung (Reverse Turn)', figCount:'6 Schritte', steps:[['L','1','v',-30],['R','2','s',-30],['L','3','c',-30],['R','1','z',-30],['L','2','s',-30],['R','3','c',-30]]},
+    {name:'Wechselschritt', figCount:'3 Schritte', steps:[['R','1','v',10],['L','2','s',0],['R','3','c',0]]},
+    {name:'Kontra-Check', figCount:'3 Schritte', steps:[['L','1','v',0],['R','2','z',0],['L','3','s',20]]},
+    {name:'Fleckerl (enge Drehung)', figCount:'6 Schritte', steps:[['R','1','v',60],['L','2','s',60],['R','3','c',60],['L','1','z',60],['R','2','s',60],['L','3','c',60]]},
+    {name:'Damendrehung', figCount:'4 Schritte', steps:[['R','1','v',90],['L','2','s',45],['R','3','c',45],['L','1','v',0]]},
+  ]},
+{ id:'langsamerwalzer', name:'Langsamer Walzer', cat:'standard', meta:'3/4-Takt · ca. 28–30 Takte/Min · ruhig', video:'eX4Rrupk9jA',
+  figures:[
+    {name:'Natural Turn', figCount:'6 Schritte', steps:[['R','1','v',30],['L','2','s',30],['R','3','c',30],['L','1','z',30],['R','2','s',30],['L','3','c',30]]},
+    {name:'Reverse Turn', figCount:'6 Schritte', steps:[['L','1','v',-30],['R','2','s',-30],['L','3','c',-30],['R','1','z',-30],['L','2','s',-30],['R','3','c',-30]]},
+    {name:'Whisk', figCount:'3 Schritte', steps:[['L','1','v',0],['R','2','s',0],['L','3','kh',15]]},
+    {name:'Chasse aus der Promenade', figCount:'3 Schritte', steps:[['R','1','s',0],['L','&','c',0],['R','2','v',20]]},
+    {name:'Hesitation Change', figCount:'3 Schritte', steps:[['L','1','v',0],['R','2','s',30],['L','3','c',0]]},
+    {name:'Progressive Chasse', figCount:'4 Schritte', steps:[['L','1','v',20],['R','2','s',20],['L','&','c',0],['R','3','s',0]]},
+  ]},
+{ id:'tango', name:'Tango', cat:'standard', meta:'2/4-Takt · ca. 31–33 Takte/Min · staccato', video:'Z5mf_Mx_kIs',
+  figures:[
+    {name:'Grundschritt', figCount:'5 Schritte', steps:[['L','1','v',0],['R','2','v',0],['L','3','v',0],['R','4','s',0],['L','5','c',0]]},
+    {name:'Corte', figCount:'3 Schritte', steps:[['R','1','z',0],['L','2','c',0],['R','3','v',0]]},
+    {name:'Ocho', figCount:'4 Schritte', steps:[['R','1','v',45],['L','2','v',-90],['R','3','v',90],['L','4','v',-45]]},
+    {name:'Promenade', figCount:'4 Schritte', steps:[['L','1','v',20],['R','2','v',0],['L','3','v',20],['R','4','c',0]]},
+    {name:'Rock Turn', figCount:'4 Schritte', steps:[['L','1','v',45],['R','2','s',45],['L','3','z',45],['R','4','c',45]]},
+    {name:'Vierschritt', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','v',0],['L','3','s',30],['R','4','c',0]]},
+  ]},
+{ id:'jive', name:'Jive', cat:'latin', meta:'4/4-Takt · ca. 42–44 Takte/Min · energisch', video:'Mbk20BIFqQU',
+  figures:[
+    {name:'Grundschritt', figCount:'8 Schritte', steps:[['R','1','s',0],['L','&','c',0],['R','2','s',0],['L','3','s',0],['R','&','c',0],['L','4','s',0],['R','5','z',0],['L','6','v',0]]},
+    {name:'Platzwechsel rechts-links', figCount:'4 Schritte', steps:[['R','1','v',0],['L','2','v',90],['R','3','s',90],['L','4','c',0]]},
+    {name:'Platzwechsel links-rechts', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','v',-90],['L','3','s',-90],['R','4','c',0]]},
+    {name:'American Spin', figCount:'4 Schritte', steps:[['R','1','v',90],['L','2','s',90],['R','3','s',90],['L','4','c',90]]},
+    {name:'Link', figCount:'3 Schritte', steps:[['R','1','s',0],['L','2','kv',0],['R','3','c',0]]},
+    {name:'Stop and Go', figCount:'4 Schritte', steps:[['R','1','v',0],['L','2','z',0],['R','3','s',0],['L','4','c',0]]},
+  ]},
+{ id:'rumba', name:'Rumba', cat:'latin', meta:'4/4-Takt · ca. 25–27 Takte/Min · sinnlich', video:'mVGbjdybKpg',
+  figures:[
+    {name:'Grundschritt (Box)', figCount:'6 Schritte', steps:[['L','2','s',0],['R','3','c',0],['L','4','v',0],['R','2','s',0],['L','3','c',0],['R','4','z',0]]},
+    {name:'Cucaracha', figCount:'3 Schritte', steps:[['L','2','s',0],['R','3','c',0],['L','4','s',0]]},
+    {name:'New York', figCount:'4 Schritte', steps:[['L','2','v',30],['R','3','c',-30],['R','2','v',-30],['L','3','c',30]]},
+    {name:'Spot Turn', figCount:'3 Schritte', steps:[['L','2','v',90],['R','3','s',90],['L','4','c',0]]},
+    {name:'Fan', figCount:'4 Schritte', steps:[['L','2','s',0],['R','3','c',0],['L','4','z',0],['R','1','c',0]]},
+    {name:'Hand to Hand', figCount:'4 Schritte', steps:[['L','2','v',20],['R','3','c',-20],['R','2','v',-20],['L','3','c',20]]},
+  ]},
+{ id:'chachacha', name:'Cha Cha Cha', cat:'latin', meta:'4/4-Takt · ca. 30–32 Takte/Min · verspielt', video:'Uszfx6d8Kr0',
+  figures:[
+    {name:'Grundschritt', figCount:'5 Schritte', steps:[['L','1','v',0],['R','2','z',0],['L','3','s',0],['R','&','c',0],['L','4','s',0]]},
+    {name:'New York', figCount:'4 Schritte', steps:[['L','2','v',30],['R','3','c',-30],['R','2','v',-30],['L','3','c',30]]},
+    {name:'Spot Turn', figCount:'3 Schritte', steps:[['L','2','v',90],['R','3','s',90],['L','4','c',0]]},
+    {name:'Hand to Hand', figCount:'4 Schritte', steps:[['L','2','v',20],['R','3','c',-20],['R','2','v',-20],['L','3','c',20]]},
+    {name:'Time Step', figCount:'5 Schritte', steps:[['L','2','s',0],['R','3','c',0],['L','&','s',0],['R','4','c',0],['L','1','s',0]]},
+    {name:'Cuban Break', figCount:'3 Schritte', steps:[['L','2','v',0],['R','3','z',0],['L','4','s',0]]},
+  ]},
+{ id:'salsa', name:'Salsa (europäisch)', cat:'latin', meta:'4/4-Takt · ca. 45–50 Takte/Min · linear', video:'TmKDXx4_4hA',
+  figures:[
+    {name:'Grundschritt vor–zurück', figCount:'6 Schritte', steps:[['L','1','v',0],['R','2','c',0],['L','3','c',0],['R','5','z',0],['L','6','c',0],['R','7','c',0]]},
+    {name:'Cross Body Lead', figCount:'4 Schritte', steps:[['L','1','v',0],['R','2','c',90],['L','3','s',0],['R','5','c',0]]},
+    {name:'Rechtsdrehung', figCount:'4 Schritte', steps:[['L','1','v',90],['R','2','c',90],['L','3','s',0],['R','5','c',0]]},
+    {name:'Linksdrehung', figCount:'4 Schritte', steps:[['R','1','v',-90],['L','2','c',-90],['R','3','s',0],['L','5','c',0]]},
+    {name:'Side Step', figCount:'6 Schritte', steps:[['L','1','s',0],['R','2','c',0],['L','3','c',0],['R','5','s',0],['L','6','c',0],['R','7','c',0]]},
+    {name:'Setenta', figCount:'4 Schritte', steps:[['L','1','v',45],['R','2','c',90],['L','3','s',45],['R','5','c',0]]},
+  ]},
+];
+
+const MOVE_LABEL = { v:'vorwärts', z:'rückwärts', s:'seitwärts', c:'schließt', kv:'kreuzt vor', kh:'kreuzt hinter' };
+
+function computeSchema(steps){
+  let x=0,y=0,heading=0;
+  const pts=[];
+  steps.forEach(([foot,count,move,turn])=>{
+    const rad = heading*Math.PI/180;
+    const fwd = {dx:Math.sin(rad), dy:-Math.cos(rad)};
+    const right = {dx:Math.cos(rad), dy:Math.sin(rad)};
+    let dir={dx:0,dy:0}, len=48;
+    if(move==='v'){dir=fwd; len=48;}
+    else if(move==='z'){dir={dx:-fwd.dx,dy:-fwd.dy}; len=48;}
+    else if(move==='s'){dir=right; len=38;}
+    else if(move==='c'){dir=fwd; len=12;}
+    else if(move==='kv'){dir={dx:fwd.dx*0.85+right.dx*0.35,dy:fwd.dy*0.85+right.dy*0.35}; len=44;}
+    else if(move==='kh'){dir={dx:fwd.dx*0.85-right.dx*0.35,dy:fwd.dy*0.85-right.dy*0.35}; len=44;}
+    x+=dir.dx*len; y+=dir.dy*len;
+    pts.push({x,y,foot,count,move});
+    heading += (turn||0);
+  });
+  return pts;
+}
+
+function renderSchemaSVG(steps){
+  const pts = computeSchema(steps);
+  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
+  const minX=Math.min(...xs), maxX=Math.max(...xs), minY=Math.min(...ys), maxY=Math.max(...ys);
+  const pad=55;
+  const w = Math.max(maxX-minX,1), h = Math.max(maxY-minY,1);
+  const W = w+pad*2, H = h+pad*2;
+  const ox = pad-minX, oy = pad-minY;
+  const sx = p => p.x+ox, sy = p => p.y+oy;
+
+  let svg = `<svg width="100%" viewBox="0 0 ${W.toFixed(0)} ${H.toFixed(0)}" role="img"><title>Schrittschema</title>`;
+  svg += `<defs><marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#8891A8" stroke-width="1.5" stroke-linecap="round"/></marker></defs>`;
+
+  // guide path
+  let d = `M ${sx(pts[0]).toFixed(1)} ${sy(pts[0]).toFixed(1)} `;
+  pts.slice(1).forEach(p=>{ d+= `L ${sx(p).toFixed(1)} ${sy(p).toFixed(1)} `; });
+  svg += `<path d="${d}" fill="none" stroke="#3A4258" stroke-width="1" stroke-dasharray="3,4"/>`;
+
+  // arrows between points, shrunk toward the midpoint
+  for(let i=0;i<pts.length-1;i++){
+    const a=pts[i], b=pts[i+1];
+    const ax=sx(a), ay=sy(a), bx=sx(b), by=sy(b);
+    const start = {x: ax+(bx-ax)*0.35, y: ay+(by-ay)*0.35};
+    const end = {x: ax+(bx-ax)*0.8, y: ay+(by-ay)*0.8};
+    svg += `<line x1="${start.x.toFixed(1)}" y1="${start.y.toFixed(1)}" x2="${end.x.toFixed(1)}" y2="${end.y.toFixed(1)}" stroke="#8891A8" stroke-width="1.1" marker-end="url(#ar)"/>`;
+  }
+
+  // footprints + labels
+  pts.forEach((p,i)=>{
+    const cx=sx(p), cy=sy(p);
+    const color = p.foot==='L' ? 'var(--foot-l)' : 'var(--foot-r)';
+    svg += `<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="15" ry="10" fill="${color}" fill-opacity="0.25" stroke="${color}" stroke-width="1.2"/>`;
+    svg += `<text x="${cx.toFixed(1)}" y="${(cy+1).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="10" font-weight="600" fill="${color}" font-family="Work Sans, sans-serif">${p.foot}</text>`;
+    const side = i%2===0 ? 1 : -1;
+    const lx = cx + side*30, ly = cy - 22;
+    const anchor = side>0 ? 'start' : 'end';
+    svg += `<text x="${(lx).toFixed(1)}" y="${ly.toFixed(1)}" text-anchor="${anchor}" font-size="10" fill="#EDEAE2" font-family="Work Sans, sans-serif">${p.count}</text>`;
+    svg += `<text x="${(lx).toFixed(1)}" y="${(ly+13).toFixed(1)}" text-anchor="${anchor}" font-size="10" fill="#A7ACC0" font-family="Work Sans, sans-serif">${MOVE_LABEL[p.move]}</text>`;
+  });
+
+  svg += `</svg>`;
+  return svg;
+}
+
+function renderStepsList(steps){
+  return '<ol>' + steps.map(([foot,count,move])=>
+    `<li><b>${count}</b> — ${foot === 'L' ? 'linker' : 'rechter'} Fuß ${MOVE_LABEL[move]}</li>`
+  ).join('') + '</ol>';
+}
+
+const tabsStandard = document.getElementById('tabs-standard');
+const tabsLatin = document.getElementById('tabs-latin');
+const main = document.getElementById('main');
+
+DANCES.forEach(dance=>{
+  const tab = document.createElement('button');
+  tab.className='tab'; tab.dataset.cat=dance.cat; tab.dataset.id=dance.id; tab.textContent=dance.name;
+  tab.onclick = ()=> showDance(dance.id);
+  (dance.cat==='standard'?tabsStandard:tabsLatin).appendChild(tab);
+
+  const panel = document.createElement('section');
+  panel.className='dance-panel'; panel.id='panel-'+dance.id;
+  panel.innerHTML = `
+    <div class="dance-head">
+      <h2>${dance.name}</h2>
+      <div class="dance-meta">${dance.meta}</div>
+    </div>
+    <div class="video-wrap"><iframe src="https://www.youtube.com/embed/${dance.video}" title="${dance.name} Tutorial" allowfullscreen></iframe></div>
+    <div class="video-caption">Video: Grundschritt-Tutorial einer Tanzschule (YouTube) – ersetzt keinen Unterricht.</div>
+    <div class="figure-grid" id="grid-${dance.id}"></div>
+  `;
+  main.appendChild(panel);
+
+  const grid = panel.querySelector('.figure-grid');
+  dance.figures.forEach((fig,idx)=>{
+    const card = document.createElement('div');
+    card.className='figure-card';
+    card.innerHTML = `<div class="fname">${fig.name}</div><div class="fcount">${fig.figCount}</div>`;
+    card.onclick = ()=> toggleFigure(dance.id, idx, card);
+    grid.appendChild(card);
+  });
+});
+
+function showDance(id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active', t.dataset.id===id));
+  document.querySelectorAll('.dance-panel').forEach(p=>p.classList.toggle('active', p.id==='panel-'+id));
+}
+
+function toggleFigure(danceId, idx, cardEl){
+  const grid = document.getElementById('grid-'+danceId);
+  const existing = grid.querySelector('.figure-detail');
+  const wasOpenForThis = cardEl.classList.contains('open');
+  if(existing) existing.remove();
+  grid.querySelectorAll('.figure-card').forEach(c=>c.classList.remove('open'));
+  if(wasOpenForThis) return;
+
+  const dance = DANCES.find(d=>d.id===danceId);
+  const fig = dance.figures[idx];
+  cardEl.classList.add('open');
+
+  const detail = document.createElement('div');
+  detail.className='figure-detail';
+  detail.innerHTML = `
+    <div class="schema-box">
+      ${renderSchemaSVG(fig.steps)}
+      <div class="legend">
+        <span><span class="dot" style="background:var(--foot-l)"></span>linker Fuß</span>
+        <span><span class="dot" style="background:var(--foot-r)"></span>rechter Fuß</span>
+      </div>
+    </div>
+    <div class="steps-box">
+      <h3 style="font-size:16px;margin-bottom:10px;">${fig.name}</h3>
+      ${renderStepsList(fig.steps)}
+    </div>
+  `;
+  cardEl.after(detail);
+}
+
+showDance('quickstep');
+document.querySelector('.tab[data-id="quickstep"]').classList.add('active');
+</script>
+</body>
+</html>
